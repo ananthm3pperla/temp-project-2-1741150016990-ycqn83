@@ -1,0 +1,182 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Brand Colors - Capital One Theme */
+    --brand-primary: #004977;
+    --brand-primary-light: #0066A1;
+    --brand-primary-dark: #003558;
+    
+    --brand-secondary: #A12B2B;
+    --brand-secondary-light: #C23535;
+    --brand-secondary-dark: #8A2424;
+    
+    --brand-accent: #00A4B4;
+    --brand-accent-light: #00BAC8;
+    --brand-accent-dark: #008A96;
+
+    /* Semantic Colors */
+    --color-primary: var(--brand-primary);
+    --color-primary-light: var(--brand-primary-light);
+    --color-primary-dark: var(--brand-primary-dark);
+    
+    --color-secondary: var(--brand-secondary);
+    --color-secondary-light: var(--brand-secondary-light);
+    --color-secondary-dark: var(--brand-secondary-dark);
+    
+    --color-accent: var(--brand-accent);
+    --color-accent-light: var(--brand-accent-light);
+    --color-accent-dark: var(--brand-accent-dark);
+    
+    /* Interface Colors */
+    --bg-app: #F8F9FC;
+    --bg-card: #FFFFFF;
+    --bg-card-hover: #F3F4F8;
+    
+    /* Text Colors */
+    --text-default: #1A1A2B;
+    --text-muted: #64647B;
+    --text-light: #9494A6;
+    
+    /* Border Colors */
+    --border-default: #E2E4ED;
+    --border-dark: #D1D3DC;
+    
+    /* Status Colors */
+    --color-success: #10B981;
+    --color-warning: #F59E0B;
+    --color-error: #EF4444;
+    --color-info: #3B82F6;
+
+    /* Focus Styles */
+    --focus-ring-color: var(--color-primary);
+    --focus-ring-offset: 2px;
+  }
+
+  .dark {
+    --bg-app: #0F1117;
+    --bg-card: #1A1D27;
+    --bg-card-hover: #252836;
+    
+    --text-default: #F1F1F6;
+    --text-muted: #A1A1B5;
+    --text-light: #7C7C8F;
+    
+    --border-default: #2A2E3C;
+    --border-dark: #363B4D;
+    
+    --color-success: #34D399;
+    --color-warning: #FBBF24;
+    --color-error: #F87171;
+    --color-info: #60A5FA;
+  }
+
+  .high-contrast {
+    --bg-app: #000000;
+    --bg-card: #1A1A1A;
+    --bg-card-hover: #333333;
+    
+    --text-default: #FFFFFF;
+    --text-muted: #FFFFFF;
+    --text-light: #FFFFFF;
+    
+    --border-default: #FFFFFF;
+    --border-dark: #FFFFFF;
+    
+    --color-primary: #FFFF00;
+    --color-primary-light: #FFFF33;
+    --color-primary-dark: #CCCC00;
+    
+    --color-success: #00FF00;
+    --color-warning: #FFA500;
+    --color-error: #FF0000;
+    --color-info: #00FFFF;
+
+    --focus-ring-color: #FFFF00;
+    --focus-ring-offset: 4px;
+  }
+}
+
+@layer components {
+  /* Improved focus styles */
+  *:focus-visible {
+    @apply outline-none ring-2 ring-offset-2;
+    ring-color: var(--focus-ring-color);
+    ring-offset-width: var(--focus-ring-offset);
+  }
+
+  /* Skip to content link */
+  .skip-to-content {
+    @apply sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 
+           focus:px-4 focus:py-2 focus:bg-card focus:text-default focus:rounded-md 
+           focus:shadow-lg focus:ring-2 focus:ring-primary;
+  }
+
+  /* Button styles with ARIA support */
+  .btn {
+    @apply inline-flex items-center justify-center px-4 py-2 border border-transparent 
+           text-sm font-medium rounded-md shadow-sm focus:outline-none focus:ring-2 
+           focus:ring-offset-2 focus:ring-primary transition-colors
+           disabled:opacity-50 disabled:cursor-not-allowed;
+    
+    &[aria-pressed="true"] {
+      @apply bg-primary-dark;
+    }
+
+    &[aria-expanded="true"] {
+      @apply bg-primary-light;
+    }
+  }
+
+  /* Form styles with improved accessibility */
+  .form-input {
+    @apply block w-full rounded-md border-default bg-card text-default
+           focus:border-primary focus:ring-primary sm:text-sm;
+    
+    &[aria-invalid="true"] {
+      @apply border-error focus:border-error focus:ring-error;
+    }
+  }
+
+  .form-label {
+    @apply block text-sm font-medium text-default mb-1;
+    
+    &[aria-required="true"]::after {
+      content: " *";
+      @apply text-error;
+    }
+  }
+}
+
+@layer utilities {
+  /* Reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* High contrast mode utilities */
+  .high-contrast {
+    .text-muted {
+      @apply text-white;
+    }
+
+    .border-default {
+      @apply border-white;
+    }
+
+    .bg-card-hover:hover {
+      @apply bg-gray-800;
+    }
+
+    img {
+      @apply contrast-125 brightness-110;
+    }
+  }
+}
